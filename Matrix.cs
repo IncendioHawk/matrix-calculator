@@ -1,16 +1,10 @@
 class Matrix
 {
-    public static int GetRows(int[,] a)
-    {
-        return a.GetLength(0);
-    }
+    public static int GetRows(double[,] a) => a.GetLength(0);
 
-    public static int GetCols(int[,] a)
-    {
-        return a.GetLength(1);
-    }
+    public static int GetCols(double[,] a) => a.GetLength(1);
 
-    public static void DisplayMatrix(int[,] a)
+    public static void DisplayMatrix(double[,] a)
     {
         int rows = GetRows(a);
         int cols = GetCols(a);
@@ -24,7 +18,7 @@ class Matrix
         }
     }
 
-    public static int[,] Add(int[,] a, int[,] b)
+    public static double[,] Add(double[,] a, double[,] b)
     {
         int rowsA = GetRows(a);
         int rowsB = GetRows(b);
@@ -36,7 +30,7 @@ class Matrix
             throw new InvalidDataException("Both matrices must have the same dimensions");
         }
 
-        int[,] result = new int[rowsA, colsA];
+        double[,] result = new double[rowsA, colsA];
 
         for (int i = 0; i < rowsA; i++)
         {
@@ -49,11 +43,11 @@ class Matrix
         return result;
     }
 
-    public static int[,] Scale(int[,] a, int s)
+    public static double[,] Scale(double[,] a, double s)
     {
         int rows = GetRows(a);
         int cols = GetCols(a);
-        int[,] result = new int[rows, cols];
+        double[,] result = new double[rows, cols];
 
         for (int i = 0; i < rows; i++)
         {
@@ -66,7 +60,7 @@ class Matrix
         return result;
     }
 
-    public static int[,] Multiply(int[,] a, int[,] b)
+    public static double[,] Multiply(double[,] a, double[,] b)
     {
         int rowsA = GetRows(a);
         int rowsB = GetRows(b);
@@ -78,7 +72,7 @@ class Matrix
             throw new InvalidDataException("The number of columns of matrix a must match the number of rows of matrix b");
         }
 
-        int[,] result = new int[rowsA, colsB];
+        double[,] result = new double[rowsA, colsB];
 
         for (int i = 0; i < rowsA; i++)
         {
@@ -91,16 +85,15 @@ class Matrix
                 }
             }
         }
-
         return result;
     }
 
-    public static int[,] Transpose(int[,] a)
+    public static double[,] Transpose(double[,] a)
     {
         int rows = GetRows(a);
         int cols = GetCols(a);
 
-        int[,] result = new int[cols, rows];
+        double[,] result = new double[cols, rows];
 
         for (int i = 0; i < rows; i++)
         {
@@ -126,7 +119,7 @@ class Matrix
         return result;
     }
 
-    public static int[,] Minor(int[,] a, int row, int col, int? rows = null, int? cols = null)
+    public static double[,] Minor(double[,] a, int row, int col, int? rows = null, int? cols = null)
     {
         rows ??= GetRows(a);
         cols ??= GetCols(a);
@@ -136,7 +129,7 @@ class Matrix
             throw new InvalidDataException("The matrix must be square");
         }
 
-        int[,] result = new int[(int) rows - 1, (int) cols - 1];
+        double[,] result = new double[(int)rows - 1, (int)cols - 1];
         int r = 0, c = 0;
         for (int i = 0; i < rows; i++)
         {
@@ -153,7 +146,7 @@ class Matrix
         return result;
     }
 
-    public static int Determinant(int[,] a, int? rows = null, int? cols = null)
+    public static double Determinant(double[,] a, int? rows = null, int? cols = null)
     {
         rows ??= GetRows(a);
         cols ??= GetCols(a);
@@ -172,15 +165,58 @@ class Matrix
             return a[0, 0] * a[1, 1] - a[0, 1] * a[1, 0];
         }
 
-        int result = 0;
-        
+        double result = 0d;
+
         int sign = 1;
         for (int i = 0; i < cols; i++)
         {
             result += sign * a[0, i] * Determinant(Minor(a, 0, i, rows, cols), rows - 1, cols - 1);
             sign *= -1;
         }
-
         return result;
+    }
+
+    public static double[,] Inverse(double[,] a)
+    {
+        int rows = GetRows(a);
+        int cols = GetCols(a);
+
+        if (rows != cols)
+        {
+            throw new InvalidDataException("The matrix must be square");
+        }
+
+        double det = Determinant(a, rows, cols);
+        if (det == 0)
+        {
+            throw new InvalidDataException("The matrix is singular and cannot be inverted");
+        }
+
+        if (rows == 1)
+        {
+            return Scale(a, 1 / det);
+        }
+        if (rows == 2)
+        {
+            double[,] adj = new double[2, 2] {
+                        { a[1, 1], -a[0, 1] },
+                        { -a[1, 0], a[0, 0] }
+                    };
+            return Scale(adj, 1 / det);
+        }
+
+        double[,] adjugate = new double[rows, cols];
+        int sign = 1;
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                adjugate[j, i] = sign * Determinant(Minor(a, i, j, rows, cols), rows - 1, cols - 1);
+                sign *= -1;
+            }
+        }
+        double[,] inverse = Scale(adjugate, 1 / det);
+        return inverse;
     }
 }
