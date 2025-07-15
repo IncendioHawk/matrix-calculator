@@ -1,0 +1,15 @@
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.AssemblyInfoInputs.cache
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.AssemblyInfo.cs
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.csproj.CoreCompileInputs.cache
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.sourcelink.json
+C:\Users\archi\Documents\code\C#\matrix-calculator\bin\Debug\net9.0\matrix-calculator.exe
+C:\Users\archi\Documents\code\C#\matrix-calculator\bin\Debug\net9.0\matrix-calculator.deps.json
+C:\Users\archi\Documents\code\C#\matrix-calculator\bin\Debug\net9.0\matrix-calculator.runtimeconfig.json
+C:\Users\archi\Documents\code\C#\matrix-calculator\bin\Debug\net9.0\matrix-calculator.dll
+C:\Users\archi\Documents\code\C#\matrix-calculator\bin\Debug\net9.0\matrix-calculator.pdb
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.dll
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\refint\matrix-calculator.dll
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.pdb
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\matrix-calculator.genruntimeconfig.cache
+C:\Users\archi\Documents\code\C#\matrix-calculator\obj\Debug\net9.0\ref\matrix-calculator.dll

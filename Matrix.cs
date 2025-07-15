@@ -173,11 +173,14 @@ class Matrix
         }
 
         int result = 0;
+        
         int sign = 1;
         for (int i = 0; i < cols; i++)
         {
-            result += sign * a[0, i] * Determinant();
+            result += sign * a[0, i] * Determinant(Minor(a, 0, i, rows, cols), rows - 1, cols - 1);
             sign *= -1;
         }
+
+        return result;
     }
 }
