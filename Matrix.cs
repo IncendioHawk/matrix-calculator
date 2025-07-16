@@ -1,5 +1,28 @@
 class Matrix
 {
+    public static double[,] CleanMatrix(double[,] a)
+    {
+        int rows = GetRows(a);
+        int cols = GetCols(a);
+        double[,] result = new double[rows, cols];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int integerPart = (int)a[i, j];
+                double fractionalPart = a[i, j] - integerPart;
+                if (fractionalPart < 1e-10 && fractionalPart > -1e-10)
+                {
+                    result[i, j] = integerPart;
+                }
+                else
+                {
+                    result[i, j] = a[i, j];
+                }
+            }
+        }
+        return result;
+    }
     public static int GetRows(double[,] a) => a.GetLength(0);
 
     public static int GetCols(double[,] a) => a.GetLength(1);
@@ -40,7 +63,7 @@ class Matrix
             }
         }
 
-        return result;
+        return CleanMatrix(result);
     }
 
     public static double[,] Scale(double[,] a, double s)
@@ -57,7 +80,7 @@ class Matrix
             }
         }
 
-        return result;
+        return CleanMatrix(result);
     }
 
     public static double[,] Multiply(double[,] a, double[,] b)
@@ -85,7 +108,7 @@ class Matrix
                 }
             }
         }
-        return result;
+        return CleanMatrix(result);
     }
 
     public static double[,] Transpose(double[,] a)
@@ -143,7 +166,7 @@ class Matrix
             }
             r++;
         }
-        return result;
+        return CleanMatrix(result);
     }
 
     public static double Determinant(double[,] a, int? rows = null, int? cols = null)
@@ -202,7 +225,7 @@ class Matrix
                         { a[1, 1], -a[0, 1] },
                         { -a[1, 0], a[0, 0] }
                     };
-            return Scale(adj, 1 / det);
+            return CleanMatrix(Scale(adj, 1 / det));
         }
 
         double[,] adjugate = new double[rows, cols];
@@ -217,6 +240,6 @@ class Matrix
             }
         }
         double[,] inverse = Scale(adjugate, 1 / det);
-        return inverse;
+        return CleanMatrix(inverse);
     }
 }

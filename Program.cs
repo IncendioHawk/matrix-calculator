@@ -13,7 +13,8 @@
                 {5, 6},
                 {7, 8}
             };
-            Matrix.DisplayMatrix(Matrix.Multiply(Matrix.Inverse(a), a));
+            Console.WriteLine(new { detA = Matrix.Determinant(a) });
+            Matrix.DisplayMatrix(Matrix.Inverse(a));
         }
     }
 }
